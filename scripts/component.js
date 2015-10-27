@@ -1,17 +1,19 @@
 (function(window) {
 
-    function Colorify(image) {
+    var Colorify = function(image) {
         this.image = image;
             // ARRAY COLLECTING RGBS
         colorArray = [];
+        // Re-store the global array as a local array for *this* instance
+        var arr = colorArray;
         this.getClosest = function(parent) {
             var imageNodes = document.querySelectorAll(this.image);
 
             for (var i = 0; i < imageNodes.length; i++) {
                 var closest = imageNodes[i].closest(parent);
-            
-                closest.style.background = 'rgb(' + colorArray[i] + ')';
-                console.log(colorArray);
+                // Use local array to set colors
+                closest.style.background = 'rgb(' + arr[i] + ')';
+                console.log(arr);
             };
 
         };
@@ -97,4 +99,5 @@ color = new Colorify('.image');
 color2 = new Colorify('.image2');
 
 color.getClosest('.container');
+color2.getClosest('.container');
 
