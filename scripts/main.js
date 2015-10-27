@@ -1,3 +1,5 @@
+var colorArray = [];
+
 
 function init() {
     getImage('img');
@@ -17,7 +19,6 @@ function generateCanvas(imgSrc, image) {
     var image = image;
     var canvas = document.createElement('canvas');
 
-    canvas.classList.add('the_canvas');
     canvas.style.display = 'none';
     var context = canvas.getContext('2d');
     var img = new Image();
@@ -26,10 +27,10 @@ function generateCanvas(imgSrc, image) {
     //TODO NEED TO LOAD AFTER IMAGE IS LOADED IN CANVAS
     context.drawImage(img, 0, 0);
 
-    return reverseColor(canvas, context, image);
+    countColor(canvas, context, image);
 }
 
-function reverseColor(obj, context, image) {
+function countColor(obj, context, image) {
     var imgData = context.getImageData(0, 0, obj.width, obj.height);
     var pix = imgData.data;
     var colorOccurrence = {};
@@ -43,38 +44,39 @@ function reverseColor(obj, context, image) {
         var rgb = ' ' + r + g + b;
 
         if (!colorOccurrence[rgb]) {
+                // LAST NUMBER IS THE COUNT OF THE COLOR
             colorOccurrence[rgb] = [r, g, b, 1];
         }
         else {
             colorOccurrence[rgb][3]++;
         }
     }
-    iterateObject(colorOccurrence, image);
+    iterateColorOcurrence(colorOccurrence, image);
 }
 
-function iterateObject(object, image) {
+function iterateColorOcurrence(object, image) {
     var maxProperty = 0;
 
     for (var prop in object) {
-        // console.log(object[prop])
         if (object[prop][3] > maxProperty) {
             maxProperty = object[prop];
+            console.log(object[prop])
         }
-
     }
     joinRGB(maxProperty, image);
 }
 
 function joinRGB(maxProperty, image) {
     maxRGB = maxProperty[0] + ',' + maxProperty[1] + ',' + maxProperty[2];
-    useClosest(image, '.container', maxRGB);
+    colorArray.push(maxRGB);
+    useClosest(image);
 
     console.log(maxRGB);
 }
 
-function useClosest(el, parentClass, RGB) {
+function useClosest(el) {
 
-    var parent = el.closest('.container');
+    var parent = el.closest('.container'); 
 
     parent.style.background = 'rgb(' + maxRGB + ')';
 }
