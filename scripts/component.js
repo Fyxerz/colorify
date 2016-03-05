@@ -93,11 +93,3 @@
 window.Colorify = Colorify;
 
 })(window);
-
-
-color = new Colorify('.image');
-color2 = new Colorify('.image2');
-
-color.getClosest('.container');
-color2.getClosest('.container');
-
