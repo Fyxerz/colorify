@@ -1,8 +1,8 @@
-(function() {
+(function(window) {
     var Colorify = function(image) {
         // ELEMENT REFERENCE
         this.image = image;
-        // ARRAY WITH COLOR OF EACH IMAGE
+        // ARRAY WITH COLOR OF EACH IMAGE (Set as string)
         this.colorArray = [];
 
         getImages(image, this);
@@ -57,20 +57,21 @@
     function getDominantColors(colorOccurrence) {
         var count = 0;
         var topColor;
-        
+
         for (var prop in colorOccurrence) {
             if (colorOccurrence[prop][1] > count) {
                 topColor = colorOccurrence[prop][0];
                 count = colorOccurrence[prop][1];
-            };
+            }
         }
         return topColor;
     };
     // GET RGB
     Colorify.prototype.getRGB = function(func) {
+		console.log(this.colorArray)
         func(this.colorArray);
-    }
+    };
 
     window.Colorify = Colorify;
 
-})(window)
+})(window);
