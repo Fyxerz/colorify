@@ -55,17 +55,37 @@
 
     // CHECK TIMES EACH COLOR HAS APPEARED
     function getDominantColors(colorOccurrence) {
+        // Set array with dominant colors.
         var count = 0;
-        var topColor;
+        var topColor; 
 
+/*
         for (var prop in colorOccurrence) {
             if (colorOccurrence[prop][1] > count) {
                 topColor = colorOccurrence[prop][0];
                 count = colorOccurrence[prop][1];
             }
         }
-        return topColor;
+*/
+
+        var topColors = [[0,0], [0,0], [0,0], [0,0], [0,0]];
+        // Iterate through all the objects.
+        for (var prop in colorOccurrence) {
+            var level = 1;
+            while (prop[1] > topColors[topColors.length - level][1] && level < 5) {
+                level ++
+            }
+
+            level == 5 ? topColors.push(prop) : topColors.splice(level, 0, prop)
+            topColors.splice(5, 1);
+        }
+
+        return topColors;
+        // Check if object would be in the top 5
+
+        // check if top 4
     };
+
     // GET RGB
     Colorify.prototype.getRGB = function(func) {
 		console.log(this.colorArray)
