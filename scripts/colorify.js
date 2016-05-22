@@ -56,28 +56,32 @@
     // CHECK TIMES EACH COLOR HAS APPEARED
     function getDominantColors(colorOccurrence) {
         // Set array with dominant colors.
+        /*
         var count = 0;
         var topColor; 
 
-/*
         for (var prop in colorOccurrence) {
             if (colorOccurrence[prop][1] > count) {
                 topColor = colorOccurrence[prop][0];
                 count = colorOccurrence[prop][1];
             }
         }
-*/
 
-        var topColors = [[0,0], [0,0], [0,0], [0,0], [0,0]];
+        */
+        var topColors = [[0, 100], [0, 1000], [0, 8], [0, 4], [0,0]];
         // Iterate through all the objects.
         for (var prop in colorOccurrence) {
             var level = 1;
-            while (prop[1] > topColors[topColors.length - level][1] && level < 5) {
-                level ++
+            var color = colorOccurrence[prop]
+            if (color[1] > topColors[topColors.length - 1][1]) {
+                while (color[1] > topColors[topColors.length - level][1] && level < 5) {
+                    level ++
+                }
+                // Make it a for loop instead of a while. with an if inside to checj if values is higher or not.
+                console.log(level)
+                level == 5 ? topColors.push(color) : topColors.splice(topColors.length - level, 0, color);
             }
-
-            level == 5 ? topColors.push(prop) : topColors.splice(level, 0, prop)
-            topColors.splice(5, 1);
+            
         }
 
         return topColors;
