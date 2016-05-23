@@ -1,19 +1,30 @@
 window.onload = function() {
 
     var color = new Colorify('.image');
-    var color2 = new Colorify('.image2');
+    // var color2 = new Colorify('.image2');
 
-    color.getRGB(function(colors) {
-        var containers = document.querySelectorAll('.container');        
-        for (var i = 0; i < containers.length; i++) {
-            containers[i].style.background = 'rgb(' + colors[i] + ')'
-        }
-    });
+    var colorColors = color.colors()
 
-    color2.getRGB(function(colors) {
-       var containers = document.querySelectorAll('.container');        
-        for (var i = 0; i < containers.length; i++) {
-            containers[i + 2].style.background = 'rgb(' + colors[i] + ')'
-        } 
-    })
+
+	var backgrounds = document.querySelectorAll('.container')
+	var titles = document.querySelectorAll('.main_title')
+
+	loop(backgrounds, function(item, i) {
+		console.log(i)
+		item.style.background = "rgb(" + colorColors[i][0][0] + ")"
+	})
+
+	loop(titles, function(item, i) {
+		console.log(i)
+		item.style.color = "rgb(" + colorColors[i][4][0] + ")"
+	})
+
+	function loop(array, callback) {
+		for (i = 0; i < array.length; i++) {
+			callback(array[i], i)
+		}
+	}
+
+
+
 }

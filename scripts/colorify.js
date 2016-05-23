@@ -56,45 +56,33 @@
     // CHECK TIMES EACH COLOR HAS APPEARED
     function getDominantColors(colorOccurrence) {
         // Set array with dominant colors.
-        /*
-        var count = 0;
-        var topColor; 
+        var topColors = [[0, 0],[0, 0], [0, 0], [0, 0], [0,0]];
 
-        for (var prop in colorOccurrence) {
-            if (colorOccurrence[prop][1] > count) {
-                topColor = colorOccurrence[prop][0];
-                count = colorOccurrence[prop][1];
-            }
-        }
-
-        */
-        var topColors = [[0, 100], [0, 1000], [0, 8], [0, 4], [0,0]];
         // Iterate through all the objects.
         for (var prop in colorOccurrence) {
+            // Set index level for the color regarding count.
             var level = 1;
+
+            // Check if new color is top color.
             var color = colorOccurrence[prop]
-            if (color[1] > topColors[topColors.length - 1][1]) {
-                while (color[1] > topColors[topColors.length - level][1] && level < 5) {
-                    level ++
-                }
-                // Make it a for loop instead of a while. with an if inside to checj if values is higher or not.
-                console.log(level)
-                level == 5 ? topColors.push(color) : topColors.splice(topColors.length - level, 0, color);
+           if (color[1] > topColors[4][1]) {
+            // Check position in array regarding counts.
+            while (color[1] > topColors[topColors.length - level][1] && level < topColors.length) {
+                level ++          
             }
-            
+            // If color is most appearing, then push, if not splice in level position.
+            level == topColors.length && color[1] > topColors[0][1] ? topColors.unshift(color) : topColors.splice(topColors.length - level + 1, 0, color) 
+            // Cut array so that it doesn't become massive with all the colors.
+            topColors.splice(topColors.length - 1, 1)
+           }
         }
-
         return topColors;
-        // Check if object would be in the top 5
-
-        // check if top 4
     };
 
-    // GET RGB
-    Colorify.prototype.getRGB = function(func) {
-		console.log(this.colorArray)
-        func(this.colorArray);
-    };
+    // Present topColors
+    Colorify.prototype.colors = function() {
+        return this.colorArray;
+    }
 
     window.Colorify = Colorify;
 
