@@ -4,7 +4,7 @@ window.onload = function() {
     // var color2 = new Colorify('.image2');
 
     var colorColors = color.colors()
-
+    console.log(colorColors)
 
 	var backgrounds = document.querySelectorAll('.container')
 	var titles = document.querySelectorAll('.main_title')

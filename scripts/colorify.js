@@ -76,7 +76,15 @@
             topColors.splice(topColors.length - 1, 1)
            }
         }
-        return topColors;
+        // Clean the aray so that they only hold the colors.
+        return topColors.map(function(items) {
+            return items.filter(function(item) {
+                return typeof item == 'string'
+            }).reduce(function(a, b) {
+                return a.concat(b)
+            }) 
+        })
+
     };
 
     // Present topColors
